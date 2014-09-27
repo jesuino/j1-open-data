@@ -24,18 +24,16 @@ public class SurveyData {
     public static Map<String, Map<String, Integer>> load() throws Exception {
         Map<String, Map<String, Integer>> results = new HashMap<>();
         Path filePath = Paths.get(FILE_SURVEY);
-        String[] columns = Files.lines(filePath).findFirst().get().split(SEPARATOR);
-        Stream.of(columns).forEach(c -> results.put(c, new HashMap<>()));
+        String[] questions = Files.lines(filePath).findFirst().get().split(SEPARATOR);
+        Stream.of(questions).forEach(c -> results.put(c, new HashMap<>()));
         Files.lines(filePath).skip(1).forEach(l -> {
             String[] anwers = l.split(SEPARATOR);
             for (int i = 1; i < anwers.length; i++) {
-                Map<String, Integer> result = results.get(columns[i]);
-                result.compute(anwers[i], (o, n) -> {
-                    return n == null ? 1 : n++;
+                results.get(questions[i]).compute(anwers[i], (o, n) -> {
+                    return n == null ? 1 : ++n;
                 });
             }
         });
         return results;
     }
-
 }
