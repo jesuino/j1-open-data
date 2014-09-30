@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 public class SurveyData {
 
-    static final String FILE_SURVEY = AppCommandLine.class.getResource("/ipea_data.csv").getFile();
+    static final String FILE_SURVEY = SurveyData.class.getResource("/ipea_data.csv").getFile();
     final static String SEPARATOR = ";";
 
     public static Map<String, Map<String, Integer>> load() throws Exception {
